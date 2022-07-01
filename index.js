@@ -74,14 +74,15 @@ async function run() {
 
         //update task
         app.put('/task/:id', async (req, res) => {
-            console.log("I am here");
             const id = req.params.id;
             const updatedTask = req.body;
             const filter = { _id: ObjectId(id) };
             const options = { upsert: true };
             const updatedDoc = {
                 $set: {
-                    name: updatedTask.name
+                    name: updatedTask.name,
+                    details: updatedTask.details,
+                    date: updatedTask.date
                 }
             }
             const result = await taskCollection.updateOne(filter, updatedDoc, options);
